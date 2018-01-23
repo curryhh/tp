@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>手机报价系统</title>
+    <meta name="description" content="这是一个手机报价页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="__ADMIN__/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="__ADMIN__/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="__ADMIN__/assets/js/jquery.min.js"></script>
+    <script src="__ADMIN__/assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="__ADMIN__/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="__ADMIN__/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="__ADMIN__/assets/css/app.css">
+</head>
+
+<body data-type="widgets">
+    <script src="__ADMIN__/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+       <!--  <include file="{:U('__MODULE__/Commom/public/header.html')}" />  -->
+        <include file="./Public/admin/view/header.html" />
+
+       	<!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title  am-cf">文章列表</div>
+                            </div>
+                            <div class="widget-body  am-fr">
+
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                                    <div class="am-form-group">
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <button type="button" class="am-btn am-btn-default am-btn-success addlist"><span class="am-icon-plus"></span> 新增</button>
+                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
+                                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
+                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                                    <div class="am-form-group tpl-table-list-select">
+                                        <select data-am-selected="{btnSize: 'sm'}">
+						              <option value="option1">所有类别</option>
+						              <option value="option2">IT业界</option>
+						              <option value="option3">数码产品</option>
+						              <option value="option3">笔记本电脑</option>
+						              <option value="option3">平板电脑</option>
+						              <option value="option3">只能手机</option>
+						              <option value="option3">超极本</option>
+						            </select>
+                                    </div>
+                                </div>
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                        <input type="text" class="am-form-field ">
+                                        <span class="am-input-group-btn">
+					            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+					          </span>
+                                    </div>
+                                </div>
+
+                                <div class="am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                        <thead>
+                                            <tr>
+                                                <th>文章缩略图</th>
+                                                <th>文章标题</th>
+                                                <th>作者</th>
+                                                <th>时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- more data -->
+                                            <volist name="data" id="vo">
+												<tr class="gradeX" >
+	                                                <td>
+	                                                    <img src="{$vo.img}" class="tpl-table-line-img" alt="">
+	                                                </td>
+
+	                                                <td class="am-text-middle">{$vo.title}</td>
+	                                                <td class="am-text-middle">{$vo.author}</td>
+	                                                <td class="am-text-middle">{$vo.time|date='Y-m-d',###}</td>
+	                                                <!-- <td class="am-text-middle">{$vo.author}</td> -->
+	                                                <td class="am-text-middle">
+	                                                    <div class="tpl-table-black-operation">
+	                                                        <a href="javascript:;" class="edit" data-id="{$vo.id}">
+	                                                            <i class="am-icon-pencil"></i> 编辑
+	                                                        </a>
+	                                                        <a href="javascript:;" class="tpl-table-black-operation-del del" data-id="{$vo.id}">
+	                                                            <i class="am-icon-trash"></i> 删除
+	                                                        </a>
+	                                                    </div>
+	                                                </td>
+	                                            </tr>
+											</volist>
+											
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+                                    <!-- <div class="am-fr">
+                                        <ul class="am-pagination tpl-pagination">
+                                            <li class="am-disabled">%first%</li>
+                                            <li class="am-active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                            <li><a href="#">»</a></li>
+                                        </ul>
+                                    </div> -->
+                                    {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__ADMIN__/assets/js/amazeui.min.js"></script>
+    <script src="__ADMIN__/assets/js/amazeui.datatables.min.js"></script>
+    <script src="__ADMIN__/assets/js/dataTables.responsive.min.js"></script>
+    <script src="__ADMIN__/assets/js/app.js"></script>
+    <script src="__ADMIN__/assets/js/layer.js"></script>
+    <!--  -->
+    <script type="text/javascript">
+
+    		// 防止if
+    		if (window != top){
+    			top.location.href = location.href;
+    		}
+			
+
+    	 $(".edit,.addlist").on('click',function(){
+    	 	if($(this).hasClass("addlist")){
+    	 		layer.open({
+				  type: 2,
+				  title: '添加文章',
+				  shadeClose: true,
+				  shade: 0.8,
+				  area: ['1100px', '80%'],
+				  content: '__CONTROLLER__/add'
+				  //iframe的url
+				}); 
+
+    	 	}else {
+
+	    	 	var id=$(this).attr("data-id");
+	    	 	//iframe层
+	    	 	console.log(id);
+    	 		layer.open({
+				  type: 2,
+				  title: '修改文章',
+				  shadeClose: true,
+				  shade: 0.8,
+				  area: ['1100px', '80%'],
+				  content: '__CONTROLLER__/edit/id/'+id //iframe的url
+				}); 
+    	 	}
+    	 	
+    	 });
+    	 // 删除
+    	 $('.del').on('click',function(){
+
+    	 	var id=$(this).attr("data-id");
+    	 	var $otr=$(this).parents("tr");
+
+    	 	//询问框
+
+			layer.confirm('确定删除吗?', {
+			  btn: ['确定','不删除'] //按钮
+
+			}, function(){
+				// ajax删除
+				$.ajax({
+				     type: 'POST',
+				     url: '__CONTROLLER__/del',
+				    data: {id:id},
+				    // dataType: json,
+				    success:function(data){    
+				        if(data){  
+				        	// 删除成功
+				            layer.msg("删除成功"); 
+				            //删除dom元素
+				            $otr.remove();
+				        }else{
+				        	//删除失败
+				            layer.msg("删除失败"); 
+				        }
+				     },    
+				     error:function(){    
+				     	// 请求失败
+				         layer.msg("请求失败");  
+				     }    
+
+				});
+				// alert('点击结束');
+				
+			  // layer.msg();
+
+			});
+    	 })
+    
+    </script>
+</body>
+
+</html>

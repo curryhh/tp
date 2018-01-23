@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>手机报价系统</title>
+    <meta name="description" content="这是一个手机报价页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="__ADMIN__/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="__ADMIN__/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="__ADMIN__/assets/js/jquery.min.js"></script>
+    <script src="__ADMIN__/assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="__ADMIN__/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="__ADMIN__/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="__ADMIN__/assets/css/app.css">
+    
+</head>
+
+<body data-type="widgets">
+    <script src="__ADMIN__/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+       	<!-- 内容区域 -->
+        <div class="row">
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">添加文章</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body am-fr">
+
+                                <form class="am-form tpl-form-border-form tpl-form-border-br" data-am-validator action="{:U ('addSave')}" method="post" enctype="multipart/form-data" >
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">标题 </label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" id="doc-vld-name-2-1" name="title" minlength="1" placeholder="请填写标题文字" required/>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">来源</label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" id="doc-vld-name-2-1" name="source" minlength="1" placeholder="请填写新闻来源" required/>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图 <span class="tpl-form-line-small-title">Images</span></label>
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
+                                                <div class="tpl-form-file-img"  id="preview">
+                                                    <img src="__ADMIN__/assets/img/a5.png" alt="">
+                                                </div>
+                                                <button type="button" name="file" class="am-btn am-btn-danger am-btn-sm">
+    <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
+                                                <input type="file" name="file"  onchange="previewImage(this)" />                       
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">文章内容</label>
+                                        <div class="am-u-sm-9">
+                                            <!-- <script id="editor" type="text/plain" ></script> -->
+                                            <textarea class="am-validate" name="content" id="editor"  style="width:600px;height:300px;" minlength="1" required></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <script src="__ADMIN__/assets/js/amazeui.min.js"></script>
+    <script src="__ADMIN__/assets/js/amazeui.datatables.min.js"></script>
+    <script src="__ADMIN__/assets/js/dataTables.responsive.min.js"></script>
+    <script src="__ADMIN__/assets/js/app.js"></script>
+    <script src="__ADMIN__/assets/js/layer.js"></script>
+    <!-- ue文本 -->
+    <script type="text/javascript" charset="utf-8" src="__ADMIN__/plugin/ue/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__ADMIN__/plugin/ue/ueditor.all.min.js"> </script>
+   
+    <script type="text/javascript" charset="utf-8" src="__ADMIN__/plugin/ue/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+        // ue
+        var ue = UE.getEditor('editor');
+        //上传
+
+        
+      //图片上传预览    IE是用了滤镜。
+
+        function previewImage(file) {
+
+          var MAXWIDTH  = 260; 
+
+          var MAXHEIGHT = 180;
+
+          var div = document.getElementById('preview');
+
+          if (file.files && file.files[0])
+
+          {
+
+              div.innerHTML ='<img id=imghead>';
+
+              var img = document.getElementById('imghead');
+
+              img.onload = function(){
+
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+
+                img.width  =  rect.width;
+
+                img.height =  rect.height;
+
+//                 img.style.marginLeft = rect.left+'px';
+
+                img.style.marginTop = rect.top+'px';
+
+              }
+
+              var reader = new FileReader();
+
+              reader.onload = function(evt){img.src = evt.target.result;}
+
+              reader.readAsDataURL(file.files[0]);
+
+          }
+
+          else //兼容IE
+          {
+
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+
+            file.select();
+
+            var src = document.selection.createRange().text;
+
+            div.innerHTML = '<img id=imghead>';
+
+            var img = document.getElementById('imghead');
+
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+
+            div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+
+          }
+
+        }
+
+        function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+
+            var param = {top:0, left:0, width:width, height:height};
+
+            if( width>maxWidth || height>maxHeight )
+
+            {
+
+                rateWidth = width / maxWidth;
+
+                rateHeight = height / maxHeight;
+
+                 
+
+                if( rateWidth > rateHeight )
+
+                {
+
+                    param.width =  maxWidth;
+
+                    param.height = Math.round(height / rateWidth);
+
+                }else
+
+                {
+
+                    param.width = Math.round(width / rateHeight);
+
+                    param.height = maxHeight;
+
+                }
+
+            }
+
+            param.left = Math.round((maxWidth - param.width) / 2);
+
+            param.top = Math.round((maxHeight - param.height) / 2);
+
+            return param;
+
+        }
+
+    </script>
+</body>
+
+</html>
